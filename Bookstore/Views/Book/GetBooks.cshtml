@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Bookstore.Models.Book>
+
+
+<h2>Books List</h2>
+
+<form asp-action="GetBooks" method="get">
+    <div class="form-group">
+        <input type="text" name="searchString" class="form-control" placeholder="Search by Title or Author" value="@ViewData["CurrentFilter"]" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Price</th>
+            <th>Genre</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.Price</td>
+                <td>@book.Genre</td>
+                <td>
+                    <a asp-controller="Book" asp-action="GetBookById" asp-route-id="@book.Id" class="btn btn-primary">>View Details</a>
+                </td>
+                <td>
+                    <a asp-controller="Book" asp-action="EditBook" asp-route-id="@book.Id" class="btn btn-primary">Edit</a>
+                </td>
+                <td>
+                    <a asp-controller="Book" asp-action="DeleteBook" asp-route-id="@book.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
